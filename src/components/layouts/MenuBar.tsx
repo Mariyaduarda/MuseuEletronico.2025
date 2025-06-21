@@ -1,6 +1,8 @@
-import {type JSX, useState} from "react";
+import React, {type JSX, useState} from "react";
 import Logo from './Logo.tsx'
 import {HomeIcon} from "lucide-react";
+import Carrossel from "../secoes/Home.tsx";
+import TechBRs from "../secoes/TechsBRs.tsx";
 
 // SPA = tipos para as seções disponíveis
 type Secao = "home" | "eletronico" | "sobre" | "tecnologias-brasileiras";
@@ -59,7 +61,7 @@ function MenuBar(): JSX.Element {
                     </>
                 )}
 
-                {/* Botão toggle CRT */}
+                {/* botão toggle CRT on/off */}
                 <button
                     onClick={() => setCrtAtiva(!crtAtivo)}
                     className="fixed top-2 right-2 z-30 px-0.1 py-0.1 bg-green-400/20 border border-green-400 text-green-400 hover:bg-green-400/30 transition-all duration-300 text-sm terminal-font"
@@ -116,20 +118,20 @@ function MenuBar(): JSX.Element {
     );
 }
 
-// Componente NavButton
+// componente NavButton
 function NavButton({ children, active, onClick }: NavButtonProps): JSX.Element {
     return (
         <button
             onClick={onClick}
             className={`
                 relative px-0.1 py-2 terminal-font transition-all duration-300 
-                ${active ? 'text-green-400' : 'text-white hover-neon-green'}
+                ${active ? 'text-green-400' : 'text-white text-green-400'}
             `}
             style={{
                 textShadow: active ? '0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00' : 'none'
             }}
         >
-            
+            {/*barrinha/underline do menu sções*/}
             {children}
             <div className={`
                 absolute bottom-0 left-0 right-0 h-0.5 bg-green-400 transition-all duration-300
@@ -143,14 +145,12 @@ function NavButton({ children, active, onClick }: NavButtonProps): JSX.Element {
 function Home(): JSX.Element {
     return (
         <div className="text-center">
-            <h1 className="text-sm font-bold terminal-font text-green-400 mb-6"
-                style={{
-                    textShadow: '0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00, 0 0 20px #00ff00'
-                }}
+            <h1 className="text-xs font-bold text-green-400 mb-4 terminal-glow"
             >
-                Bem-vindo ao Museu Digital
+                &gt; BEM-VINDE AO MUSEU DIGITAL_
                 <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
+            <Carrossel/>
             <p className="text-sm text-gray-300 terminal-font max-w-2xl mx-auto">
                 Explore a evolução da tecnologia através do tempo
             </p>
@@ -161,12 +161,10 @@ function Home(): JSX.Element {
 function Eletronicos(): JSX.Element {
     return (
         <div className="text-center">
-            <h1 className="text-sm font-bold text-green-400 mb-6 terminal-font"
-                style={{
-                    textShadow: '0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00, 0 0 20px #00ff00'
-                }}
+            <h1 className="text-xs font-bold text-green-400 mb-6 terminal-glow"
             >
-                Eletrônicos 3D
+                &gt; ELETRÔNICOS 3D
+                <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
             <p className="text-sm text-gray-300 terminal-font max-w-2xl mx-auto">
                 Visualizações interativas dos aparelhos eletrônicos
@@ -178,13 +176,12 @@ function Eletronicos(): JSX.Element {
 function Sobre(): JSX.Element {
     return (
         <div className="text-center">
-            <h1 className="text-sm font-bold text-green-400 mb-6 terminal-font"
-                style={{
-                    textShadow: '0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00, 0 0 20px #00ff00'
-                }}
+            <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow"
             >
-                Sobre o Museu
+                &gt; SOBRE O MUSEU QUINQUILHARIAS.TECH
+                <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
+
             <p className="text-sm text-gray-300 terminal-font max-w-2xl mx-auto">
                 Um espaço digital dedicado à preservação da história tecnológica
             </p>
@@ -195,16 +192,14 @@ function Sobre(): JSX.Element {
 function TecnologiasBrasileiras(): JSX.Element {
     return (
         <div className="text-center">
-            <h1 className="text-sm font-bold text-green-400 mb-6 terminal-font"
-                style={{
-                    textShadow: '0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00, 0 0 20px #00ff00'
-                }}
-            >
-                Tecnologias Brasileiras
+            <h1 className="text-xs font-bold text-green-400 mb-4 terminal-glow">
+                &gt; TECNOLOGIAS BRASILEIRAS_
+                <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
             <p className="text-sm text-gray-300 terminal-font max-w-2xl mx-auto">
-                CTRL-Z na história das tecnologias desenvolvidas no Brasil.
+                CRTL-Z em inovações digitais 100% nacionais
             </p>
+            <TechBRs/>
         </div>
     );
 }

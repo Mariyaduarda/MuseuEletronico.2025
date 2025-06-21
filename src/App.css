@@ -12,3 +12,100 @@
             0 0 30px rgba(0, 255, 0, 0.2);
     min-height: calc(100vh - 40px);
 }
+
+.terminal-glow {
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor !important;
+}
+
+.tech-card {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 0, 0.05));
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    transition: all 0.3s ease;
+    min-height: 30px;
+}
+
+.tech-card:hover {
+    border-color: #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+}
+
+.tech-detail {
+    border-left: 2px solid rgba(0, 255, 0, 0.5);
+    background: rgba(0, 255, 0, 0.05);
+}
+
+.filter-btn {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+    background: rgba(0, 255, 0, 0.2);
+    border-color: #00ff00;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.timeline-dot {
+    width: 8px;
+    height: 8px;
+    background: #00ff00;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.compact-card {
+    padding: 8px 16px !important;
+    min-height: 30px !important;
+}
+
+.compact-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 30px;
+}
+
+/* HOME CARROSSEL */
+.carousel-container {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8));
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+}
+
+.slide-content {
+    background: linear-gradient(135deg, var(--tw-gradient-stops));
+    border: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.control-btn {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+    background: rgba(0, 255, 0, 0.2);
+    border-color: #00ff00;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+.indicator {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: #00ff00;
+    border-color: #00ff00;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.status-bar {
+    background: rgba(0, 0, 0, 0.8);
+    border-top: 1px solid rgba(0, 255, 0, 0.3);
+}
