@@ -1,0 +1,138 @@
+/* construindo um filtro crt -> filtro de eletronicos visuais antigos */
+
+.crt-container {
+    background-color: black;
+    background-image:
+            linear-gradient(90deg, transparent 98%, rgba(0, 255, 0, 0.03) 100%),
+            linear-gradient(transparent 98%, rgba(0, 255, 0, 0.03) 100%);
+    background-size: 3px 3px;
+}
+
+.scanlines {
+    background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.1) 2px,
+            rgba(0, 0, 0, 0.1) 4px
+    );
+    animation: scanline-move 0.1s linear infinite;
+}
+
+@keyframes scanline-move {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(4px); }
+}
+
+.flicker {
+    background: rgba(0, 255, 0, 0.02);
+    animation: flicker 0.15s infinite linear alternate;
+}
+
+@keyframes flicker {
+    0% { opacity: 1; }
+    100% { opacity: 0.98; }
+}
+
+.noise {
+    background-image:
+            radial-gradient(circle, transparent 20%, rgba(255,255,255,0.01) 21%),
+            radial-gradient(circle, transparent 20%, rgba(0,255,0,0.005) 21%);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    animation: noise-move 0.2s infinite;
+}
+
+@keyframes noise-move {
+    0% { transform: translateX(0px) translateY(0px); }
+    10% { transform: translateX(-1px) translateY(-1px); }
+    20% { transform: translateX(1px) translateY(0px); }
+    30% { transform: translateX(0px) translateY(1px); }
+    40% { transform: translateX(1px) translateY(-1px); }
+    50% { transform: translateX(-1px) translateY(1px); }
+    60% { transform: translateX(0px) translateY(0px); }
+    70% { transform: translateX(1px) translateY(1px); }
+    80% { transform: translateX(-1px) translateY(0px); }
+    90% { transform: translateX(0px) translateY(-1px); }
+    100% { transform: translateX(1px) translateY(0px); }
+}
+
+.screen-curve {
+    border-radius: 20px;
+    background: radial-gradient(ellipse at center,
+    rgba(0, 20, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.3) 100%);
+    box-shadow:
+            inset 0 0 100px rgba(0, 255, 0, 0.1),
+            0 0 50px rgba(0, 255, 0, 0.2);
+}
+
+.crt-glow {
+    text-shadow:
+            0 0 5px #00ff00,
+            0 0 10px #00ff00,
+            0 0 15px #00ff00,
+            0 0 20px #00ff00;
+}
+
+.animated-gradiente-bg {
+    background: linear-gradient(
+            45deg,
+            #00ff00,
+            #00ff41,
+            #39ff14,
+            #00ff7f,
+            #00ffff
+    );
+    background-size: 400% 400%;
+    animation: gradiente-flow 8s ease infinite;
+}
+
+@keyframes gradiente-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.nav-gradiente-text {
+    background: linear-gradient(
+            45deg,
+            #00ff00,
+            #00ff41,
+            #39ff14,
+            #00ff7f,
+            #00ffff
+    );
+    background-size: 300% 300%;
+    animation: gradiente-flow 4s ease infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hover-neon-green:hover {
+    color: #39ff14;
+    text-shadow:
+            0 0 40px #39ff14,
+            0 0 40px #ffffff;
+    transition: color 0.3s ease;
+}
+
+.crt-interference {
+    animation: interference 3s infinite;
+}
+
+@keyframes interference {
+    0%, 98% { transform: translateX(0); }
+    99% { transform: translateX(2px); }
+    100% { transform: translateX(-1px); }
+}
+
+.terminal-cursor {
+    animation: cursor-blink 1s infinite;
+}
+
+@keyframes cursor-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
