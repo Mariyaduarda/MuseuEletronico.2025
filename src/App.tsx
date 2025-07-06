@@ -9,9 +9,6 @@ function App() {
         <>
             <div className="crt-filter">
                 <MenuBar/>
-                <button className="toggle-btn"></button>
-            </div>
-            <div className="crt-filter">
                 <Footer/>
             </div>
         </>
