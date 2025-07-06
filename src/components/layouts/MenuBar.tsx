@@ -145,8 +145,7 @@ function NavButton({ children, active, onClick }: NavButtonProps): JSX.Element {
 function Home(): JSX.Element {
     return (
         <div className="text-center">
-            <h1 className="text-xs font-bold text-green-400 mb-4 terminal-glow"
-            >
+            <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
                 &gt; BEM-VINDE AO MUSEU DIGITAL_
                 <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
@@ -161,8 +160,7 @@ function Home(): JSX.Element {
 function Eletronicos(): JSX.Element {
     return (
         <div className="text-center">
-            <h1 className="text-xs font-bold text-green-400 mb-6 terminal-glow"
-            >
+            <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
                 &gt; ELETRÔNICOS 3D
                 <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
@@ -176,8 +174,7 @@ function Eletronicos(): JSX.Element {
 function Sobre(): JSX.Element {
     return (
         <div className="text-center">
-            <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow"
-            >
+            <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
                 &gt; SOBRE O MUSEU QUINQUILHARIAS.TECH
                 <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
@@ -192,7 +189,7 @@ function Sobre(): JSX.Element {
 function TecnologiasBrasileiras(): JSX.Element {
     return (
         <div className="text-center">
-            <h1 className="text-xs font-bold text-green-400 mb-4 terminal-glow">
+            <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
                 &gt; TECNOLOGIAS BRASILEIRAS_
                 <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
