@@ -15,7 +15,7 @@ function Logo() {
     return (
         <div className="flex flex-col items-center">
             {/* logo no mesmo nível do restate do menu */}
-            <div className="text-green-400 font-bold terminal-font mb-2 text-2xl sm:text-xl md:text-xl lg:text-2xl"
+            <div className="text-green-400 font-bold terminal-font mb-2 text-2xl sm:text-xl md:text-xl lg:text-xl"
                  style={{
                      textShadow: '0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00'
                  }}>
