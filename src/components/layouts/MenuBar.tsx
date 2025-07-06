@@ -86,7 +86,7 @@ function MenuBar(): JSX.Element {
                                 onClick={() => setSecaoAtual("home")}
                             >
                                 {/* procurar um homeicon melhor OU ajeitar o underline/barrinah*/}
-                                <HomeIcon size={14} className="inline-lock mr-1"/>
+                                <HomeIcon size={14} className="inline-lock"/>
                             </NavButton>
                             <NavButton
                                 active={secaoAtual === "eletronico"}
