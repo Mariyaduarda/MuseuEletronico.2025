@@ -145,11 +145,16 @@ function NavButton({ children, active, onClick }: NavButtonProps): JSX.Element {
 function Home(): JSX.Element {
     return (
         <div className="text-center">
+            {/* Titulo */}
             <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
                 &gt; BEM-VINDE AO MUSEU DIGITAL_
                 <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
+
+            {/* carrossel de destaques */}
             <Carrossel/>
+
+            {/* corpo em si */}
             <p className="text-sm text-gray-300 terminal-font max-w-2xl mx-auto">
                 Explore a evolução da tecnologia através do tempo
             </p>
@@ -160,13 +165,19 @@ function Home(): JSX.Element {
 function Eletronicos(): JSX.Element {
     return (
         <div className="text-center">
+            {/* Titulo */}
             <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
                 &gt; ELETRÔNICOS 3D
                 <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
+            
+            {/* Subtitulo */}
             <p className="text-sm text-gray-300 terminal-font max-w-2xl mx-auto">
                 Visualizações interativas dos aparelhos eletrônicos
             </p>
+            
+            {/* corpo em si */}
+
         </div>
     );
 }
@@ -174,14 +185,19 @@ function Eletronicos(): JSX.Element {
 function Sobre(): JSX.Element {
     return (
         <div className="text-center">
+            {/* Titulo */}
             <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
                 &gt; SOBRE O MUSEU QUINQUILHARIAS.TECH
                 <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
 
+            {/* Subtitulo */}
             <p className="text-sm text-gray-300 terminal-font max-w-2xl mx-auto">
                 Um espaço digital dedicado à preservação da história tecnológica
             </p>
+            
+            {/* corpo em si */}
+
         </div>
     );
 }
@@ -189,13 +205,18 @@ function Sobre(): JSX.Element {
 function TecnologiasBrasileiras(): JSX.Element {
     return (
         <div className="text-center">
+            {/* Titulo */}
             <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
                 &gt; TECNOLOGIAS BRASILEIRAS_
                 <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
+            
+            {/* Subtitulo */}
             <p className="text-sm text-gray-300 terminal-font max-w-2xl mx-auto">
                 CRTL-Z em inovações digitais 100% nacionais
             </p>
+            
+            {/* corpo em si */}
             <TechBRs/>
         </div>
     );
