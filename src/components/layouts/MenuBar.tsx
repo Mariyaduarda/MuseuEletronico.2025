@@ -109,7 +109,7 @@ function MenuBar(): JSX.Element {
                         </div>
                     </nav>
                     {/* add borda dps do menu*/}
-                    <main className="p-6 border-t-1 border-white">
+                    <main className="p-6 border-white">
                         {renderSecao()}
                     </main>
                 </div>

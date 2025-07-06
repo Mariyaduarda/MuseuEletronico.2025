@@ -3,7 +3,7 @@ import type {JSX} from "react";
 function Footer(): JSX.Element {
 
     return (
-        <footer className="relative z-20 text-xs bg-black border-t-2 border-white">
+        <footer className="relative z-20 text-xs bg-black border-white">
             <div className="max-w-7xl mx-auto px-4 py-8">
                 <div className="text-center">
                     <p className="text-green-400 font-mono terminal-glow">
