@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+.terminal-font {
+    font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+    letter-spacing: 0.025em !important;
+}
+
+.terminal-glow {
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor !important;
+}
+
+.neon-glow {
+    box-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor !important;
+}
+
+.sidebar-backdrop {
+    backdrop-filter: blur(4px);
+}
+
+.sidebar-arrow {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-arrow:hover {
+    transform: translateY(-50%) scale(1.1);
+    filter: brightness(1.2);
+}
+
+.sidebar-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* Efeitos CRT */
+.crt-container {
+    position: relative; /* Garante que os pseudo-elementos scanlines etc. sejam posicionados corretamente */
+    overflow: hidden; /* Importante para que os efeitos não vazem */
+}
+
+.scanlines {
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.3) 50%);
+    background-size: 100% 4px;
+    animation: scanline-flicker 0.1s steps(60) infinite;
+}
+
+.flicker {
+    background: rgba(0, 0, 0, 0.05);
+    animation: crt-flicker 0.2s infinite alternate;
+}
+
+.noise {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEV/f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3//f3/+/v7///8k/H0WAAAAF3RSTlMAAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRo2pX40AAAAuElEQVQ4y2NgGAWjYBRgAQAgkRzWAAAAAElFTkSuQmCC');
+    background-size: 10px 10px;
+    opacity: 0.1;
+    animation: noise-animation 1s infinite alternate;
+}
+
+.screen-curve::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    box-shadow: inset 0 0 50px rgba(0, 255, 0, 0.2);
+    z-index: 10;
+    pointer-events: none;
+    transform: scale(1.05, 1.03);
+    opacity: 0.5;
+}
+
+@keyframes scanline-flicker {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 0% 100%; }
+}
+
+@keyframes crt-flicker {
+    0%, 100% { opacity: 0.05; }
+    50% { opacity: 0.1; }
+}
+
+@keyframes noise-animation {
+    0%, 100% { background-position: 0 0; }
+    50% { background-position: 50% 50%; }
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+.terminal-cursor::after {
+    content: '█';
+    animation: blink 1s infinite;
+}

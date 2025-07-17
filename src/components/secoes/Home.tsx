@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Pause, Play, Cpu } from 'lucide-react';
 import '@/App.css'
 
 const Carrossel = () => {
+
     const slides = [
         {
             id: 1,
@@ -82,9 +83,12 @@ const Carrossel = () => {
 
     return (
         <>
-            <div className="relative w-full max-w-4xl mx-auto carousel-container rounded-lg overflow-hidden terminal-font">
+            <div
+
+                className="relative w-full max-w-4xl mx-auto carousel-container rounded-lg overflow-hidden terminal-font">
                 {/* carrossel movimentando */}
-                <div className="relative h-60 overflow-hidden bg-black">
+                <div
+                    className="bg-gray-100 bg-zinc-800 relative h-60 overflow-hidden">
                     <div
                         className={`flex h-full ${isTransitioning ? 'transition-transform duration-400 ease-in-out' : ''}`}
                         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -163,7 +167,9 @@ const Carrossel = () => {
                 </div>
 
                 {/* indicadores */}
-                <div className="flex justify-center gap-3 py-3 bg-black border-t border-green-400/20">
+                <div
+                    style={{backgroundColor: '#0f0f0f'}}
+                    className="flex justify-center gap-3 py-3 border-t border-green-400/20">
                     {slides.map((_, index) => (
                         <button
                             key={index}

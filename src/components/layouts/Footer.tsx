@@ -1,24 +1,41 @@
-import type {JSX} from "react";
+import type { JSX } from "react";
 
-function Footer(): JSX.Element {
+interface FooterProps {
+    temaEscuro: boolean;
+}
 
+function Footer({ temaEscuro }: FooterProps): JSX.Element {
     return (
-        <footer className="relative z-20 text-xs bg-black border-white">
+        <footer
+            style={{
+                backgroundColor: '#1a1a1a'}}>
+            className="relative z-20 text-xs border-t-2"
             <div className="max-w-7xl mx-auto px-4 py-8">
                 <div className="text-center">
-                    <p className="text-green-400 font-mono terminal-glow">
+                    <p className={`font-mono terminal-glow ${
+                        temaEscuro
+                            ? 'text-green-400'
+                            : 'text-gray-700'
+                    }`}>
                         © 2025
                         <br/>
                         QUINQUILHARIAS.TECH
                         <br/>
                         IFMG - Campus Formiga
-                    </p>
-                    <p className="text-green-300 font-mono text-[5px] ">
                         <br/>
-                        &gt; SLOGAN LEGAL_
+                        Projeto Frontend 2025.1, com professor Rai Caetano_
+                    </p>
+                    <p className={`font-mono text-[10px] mt-2 ${
+                        temaEscuro
+                            ? 'text-green-300'
+                            : 'text-black'
+                    }`}>
+                        Museu Digital - Preservando a História da Tecnologia
                     </p>
                 </div>
             </div>
         </footer>
     );
-} export default Footer;
+}
+
+export default Footer;

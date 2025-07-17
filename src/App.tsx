@@ -9,7 +9,7 @@ function App() {
         <>
             <div className="crt-filter">
                 <MenuBar/>
-                <Footer/>
+                <Footer temaEscuro={true}/>
             </div>
         </>
     )

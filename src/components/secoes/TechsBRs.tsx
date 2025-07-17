@@ -102,7 +102,9 @@ function TechBRs() {
     });
 
     return (
-        <div className="min-h-screen bg-black text-white terminal-font">
+        <div
+            style={{backgroundColor: '#0f0f0f'}}
+            className="min-h-screen  text-white terminal-font">
             <div className="container mx-auto px-6 py-8">
                 {/* filtros por época */}
                 <div className="flex flex-wrap justify-center gap-4 mb-8">

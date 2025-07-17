@@ -34,15 +34,6 @@
     100% { opacity: 0.98; }
 }
 
-.noise {
-    background-image:
-            radial-gradient(circle, transparent 20%, rgba(255,255,255,0.01) 21%),
-            radial-gradient(circle, transparent 20%, rgba(0,255,0,0.005) 21%);
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
-    animation: noise-move 0.2s infinite;
-}
-
 @keyframes noise-move {
     0% { transform: translateX(0px) translateY(0px); }
     10% { transform: translateX(-1px) translateY(-1px); }
