@@ -3,3 +3,30 @@
 html, body {
   background-color: #000; /* coloca o fundo como preto total */
 }
+
+/* Scrollbar com glow do terminal */
+.terminal-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.terminal-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #22c55e; /* Tailwind green-500 */
+  border-radius: 4px;
+  box-shadow: 0 0 8px #22c55e, 0 0 2px #22c55e;
+}
+
+.terminal-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #22c55e transparent;
+}
+
+/* pro firefox */
+.terminal-scrollbar::-moz-scrollbar-thumb {
+  background-color: #22c55e;
+  border-radius: 4px;
+  box-shadow: 0 0 8px #22c55e, 0 0 2px #22c55e;
+}

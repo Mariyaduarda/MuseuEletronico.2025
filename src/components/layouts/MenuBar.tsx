@@ -5,7 +5,7 @@ import TechBRs from "../secoes/TechsBRs.tsx";
 import TerminalSim from '../secoes/TerminalSim.tsx';
 
 // SPA = tipos para as seções disponíveis
-type Secao = "home" | "eletronico" | "sobre" | "tecnologias-brasileiras" | "terminal";
+export type Secao = "home" | "eletronico" | "sobre" | "tecnologias-brasileiras" | "terminal";
 
 // Interface para props do NavButton
 interface NavButtonProps {
@@ -40,10 +40,11 @@ function MenuBar(): JSX.Element {
                 return <TecnologiasBrasileiras/>;
             case "terminal":
                 return <Terminal
-                crtAtivo={crtAtivo}
-                setCrtAtiva={setCrtAtiva}
-                temaEscuro={temaEscuro}
-                setTemaEscuro={setTemaEscuro}
+                crtAtivo={crtAtivo}           // Para ativar CRT
+                setCrtAtiva={setCrtAtiva}     //
+                temaEscuro={temaEscuro}       // Para mudar o tema
+                setTemaEscuro={setTemaEscuro} //
+                setSecaoAtual={setSecaoAtual} // Para mudar a pagina
                 />; 
             default:
                 return <Home/>;
@@ -274,9 +275,10 @@ interface TerminalProps {
   setCrtAtiva: React.Dispatch<React.SetStateAction<boolean>>;
   temaEscuro: boolean;
   setTemaEscuro: React.Dispatch<React.SetStateAction<boolean>>;
+  setSecaoAtual: React.Dispatch<React.SetStateAction<Secao>>;
 }
 
-function Terminal({ crtAtivo, setCrtAtiva, temaEscuro, setTemaEscuro }: TerminalProps): JSX.Element {
+function Terminal({ crtAtivo, setCrtAtiva, temaEscuro, setTemaEscuro, setSecaoAtual  }: TerminalProps): JSX.Element {
   return (
     <div className="text-center">
       <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
@@ -291,6 +293,7 @@ function Terminal({ crtAtivo, setCrtAtiva, temaEscuro, setTemaEscuro }: Terminal
         setCrtAtiva={setCrtAtiva}
         temaEscuro={temaEscuro}
         setTemaEscuro={setTemaEscuro}
+        setSecaoAtual={setSecaoAtual}  // passa para TerminalSim
       />
     </div>
   );
