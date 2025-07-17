@@ -13,10 +13,6 @@
     min-height: calc(100vh - 40px);
 }
 
-.terminal-glow {
-    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor !important;
-}
-
 .tech-card {
     background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 0, 0.05));
     border: 1px solid rgba(0, 255, 0, 0.3);

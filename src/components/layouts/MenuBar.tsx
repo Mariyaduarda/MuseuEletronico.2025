@@ -63,7 +63,8 @@ function MenuBar(): JSX.Element {
                     }
                     
                     .terminal-glow {
-                        text-shadow: 0 0 5px currentColor, 0 0 10px currentColor !important;
+                    text-shadow: 0 0 2px #009900, 0 0 4px #009900;
+
                     }
                 `
             }} />
