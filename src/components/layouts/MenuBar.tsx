@@ -1,11 +1,11 @@
-import React, {type JSX, useState} from "react";
+import React, { type JSX, useState, useEffect } from "react";
 import Logo from './Logo.tsx'
-import {HomeIcon} from "lucide-react";
 import Carrossel from "../secoes/Home.tsx";
 import TechBRs from "../secoes/TechsBRs.tsx";
+import TerminalSim from '../secoes/TerminalSim.tsx';
 
 // SPA = tipos para as seções disponíveis
-type Secao = "home" | "eletronico" | "sobre" | "tecnologias-brasileiras";
+type Secao = "home" | "eletronico" | "sobre" | "tecnologias-brasileiras" | "terminal";
 
 // Interface para props do NavButton
 interface NavButtonProps {
@@ -18,7 +18,14 @@ function MenuBar(): JSX.Element {
     // estado da secao atual
     const [secaoAtual, setSecaoAtual] = useState<Secao>("home");
     // mostra o crt no q ta selecionado agora
-    const [crtAtivo, setCrtAtiva] = useState<boolean>(true);
+    const [crtAtivo, setCrtAtiva] = useState<boolean>(true); // crt comeca ligado por padrao
+    // estado do tema escuro ou claro
+    const [temaEscuro, setTemaEscuro] = useState<boolean>(true); // tema comeca escuro por padrao
+
+    // efeito pra adicionar ou remover o 'dark' do html 
+    useEffect(() => {
+        document.documentElement.classList.toggle('dark', temaEscuro);
+    }, [temaEscuro]);
 
     /* decide qual componetne  mostrar */
     const renderSecao = (): JSX.Element => {
@@ -31,6 +38,13 @@ function MenuBar(): JSX.Element {
                 return <Sobre/>;
             case "tecnologias-brasileiras":
                 return <TecnologiasBrasileiras/>;
+            case "terminal":
+                return <Terminal
+                crtAtivo={crtAtivo}
+                setCrtAtiva={setCrtAtiva}
+                temaEscuro={temaEscuro}
+                setTemaEscuro={setTemaEscuro}
+                />; 
             default:
                 return <Home/>;
         }
@@ -53,7 +67,7 @@ function MenuBar(): JSX.Element {
                 `
             }} />
 
-            <div className={`min-h-screen text-sm bg-black text-white terminal-font ${crtAtivo ? 'crt-container' : ''}`}>
+            <div className={`min-h-screen text-sm bg-white text-black dark:bg-black dark:text-green-400 terminal-font ${crtAtivo ? 'crt-container' : ''}`}>
                 {/* Efeitos CRT */}
                 {crtAtivo && (
                     <>
@@ -79,11 +93,11 @@ function MenuBar(): JSX.Element {
                     
                     {/* muda o tamanho do padding dependendo do tamanho da tela:
                         "sm:p-6" usa p6 quando tela for "small" e etc */}
-                    <nav className="relative p-4 sm:p-6 md:p-8 lg:p-10">
-                        <div className="relative z-10 flex flex-col sm:flex-row items-center sm:items-end gap-4 sm:gap-8 justify-center text-xs">
+                    <nav className="relative p-2 sm:p-4 md:p-6 lg:p-8">
+                        <div className="relative z-10 flex flex-col md:flex-row items-center md:items-end gap-4 sm:gap-8 justify-center text-lg">
                             {/* chama o componente logo - quinquilharias.tech + clock*/}
                             <Logo />
-                                <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
+                                <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-xl sm:text-2xl lg:text-lg xl:text-xl">
 
                                 {/* vai mudar de cor de acordo com a seção selecionada, tendo um underline*/}
                                 
@@ -93,8 +107,8 @@ function MenuBar(): JSX.Element {
                                     onClick={() => setSecaoAtual("home")}
                                 >
                                     {/* so mostra o nome inteiro se tiver espaço suficiente*/}
-                                    <span className="block md:block lg:hidden text-2xl">[H]</span>
-                                    <span className="hidden lg:block lg:text-lg">Home</span>
+                                    <span className="inline lg:hidden">[HM]</span>
+                                    <span className="hidden lg:inline">Home</span>
                                 </NavButton>
 
                                 {/* Eletronicos 3d */}
@@ -102,10 +116,9 @@ function MenuBar(): JSX.Element {
                                     active={secaoAtual === "eletronico"}
                                     onClick={() => setSecaoAtual("eletronico")}
                                 >
-                                    
                                     {/* so mostra o nome inteiro se tiver espaço suficiente*/}
-                                    <span className="block md:block lg:hidden text-2xl">[3D]</span>
-                                    <span className="hidden lg:block lg:text-lg">Eletrônicos 3D</span>
+                                    <span className="inline lg:hidden">[3D]</span>
+                                    <span className="hidden lg:inline">Eletrônicos 3D</span>
                                 </NavButton>
 
                                 {/* Sobre */}
@@ -113,10 +126,9 @@ function MenuBar(): JSX.Element {
                                     active={secaoAtual === "sobre"}
                                     onClick={() => setSecaoAtual("sobre")}
                                 >
-                                    
                                     {/* so mostra o nome inteiro se tiver espaço suficiente*/}
-                                    <span className="block md:block lg:hidden text-2xl">[i]</span>
-                                    <span className="hidden lg:block lg:text-lg">Sobre</span>
+                                    <span className="inline lg:hidden">[SB]</span>
+                                    <span className="hidden lg:inline">Sobre</span>
                                 </NavButton>
 
                                 {/* Tecnologia BR */}
@@ -124,17 +136,27 @@ function MenuBar(): JSX.Element {
                                     active={secaoAtual === "tecnologias-brasileiras"}
                                     onClick={() => setSecaoAtual("tecnologias-brasileiras")}
                                 >
-                                    
                                     {/* so mostra o nome inteiro se tiver espaço suficiente*/}
-                                    <span className="block md:block lg:hidden text-2xl">[BR]</span>
-                                    <span className="hidden lg:block lg:text-lg">Techs Brasileiras</span>
+                                    <span className="inline lg:hidden">[BR]</span>
+                                    <span className="hidden lg:inline">Techs Brasileiras</span>
                                 </NavButton>
+
+                                {/* Terminal */}
+                                <NavButton
+                                    active={secaoAtual === "terminal"}
+                                    onClick={() => setSecaoAtual("terminal")}
+                                >
+                                    {/* so mostra o nome inteiro se tiver espaço suficiente*/}
+                                    <span className="inline lg:hidden sm:text-2xl md:text-2xl">[TR]</span>
+                                    <span className="hidden lg:inline xl:text-xl">Terminal</span>
+                                </NavButton>
+
                             </div>
                         </div>
                     </nav>
 
                     {/* add borda dps do menu*/}
-                    <main className="p-6 border-white">
+                    <main className="p-6">
                         {renderSecao()}
                     </main>
                 </div>
@@ -245,6 +267,33 @@ function TecnologiasBrasileiras(): JSX.Element {
             <TechBRs/>
         </div>
     );
+}
+
+interface TerminalProps {
+  crtAtivo: boolean;
+  setCrtAtiva: React.Dispatch<React.SetStateAction<boolean>>;
+  temaEscuro: boolean;
+  setTemaEscuro: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function Terminal({ crtAtivo, setCrtAtiva, temaEscuro, setTemaEscuro }: TerminalProps): JSX.Element {
+  return (
+    <div className="text-center">
+      <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
+        &gt; TERMINAL_
+        <span className="terminal-cursor text-green-400 ml-1">█</span>
+      </h1>
+      <p className="text-sm text-gray-300 terminal-font max-w-2xl mx-auto">
+        Simulador de um Terminal
+      </p>
+      <TerminalSim
+        crtAtivo={crtAtivo}
+        setCrtAtiva={setCrtAtiva}
+        temaEscuro={temaEscuro}
+        setTemaEscuro={setTemaEscuro}
+      />
+    </div>
+  );
 }
 
 export default MenuBar;
