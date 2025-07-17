@@ -30,9 +30,6 @@
 		// comeca nula pois n foi renderizada na tela ainda
 		const inputRef = useRef<HTMLInputElement>(null);
 
-		// pega a referencia do historico do terminal
-		const terminalRef = useRef<HTMLDivElement>(null);
-
 		// sempre que o componente 'history' for renderizado e sempre que ele mudar, vai rodar o efeito
 		// coloca o foco de volta no campo de texto, pra poder escrever dnv
 		//    - basicamente pergunta se o 'inputRef' existe, ou seja, n e nulo (.current?)
@@ -41,23 +38,19 @@
 			inputRef.current?.focus();
 		}, [history]);
 
-		// do mesmo jeito, quando o historico mudar, desce a rolagem o maximo possivel
-		useEffect(() => {
-			if (terminalRef.current) {
-				terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
-			}
-		}, [history]);
-
 		// pega o comando e vê oq devia fazer
-		const rodaComando = (input: string) => {
+		const rodaComando = (cmd: string) => {
+			//cmd é o comando que o usuario escreveu
 
-			//divide o comando em partes
-			const comando = input.trim();        // string inteira(removendo espaços extras)
-			const partes = comando.split(' ');   // termos separados
-			const cmd = partes[0].toLowerCase(); // primeiro termo
+			// .toLowerCase() - coloca td em minusculo
+			// .trim()        - tira espacos no comeco e fim
+			const cmdLimpo = cmd.toLowerCase().trim();
 
 			//string pra guardar a resposta do terminal( oq vai aparecer pro usuario)
 			let resposta = '';
+
+			// define quais paginas sao validas se eu quiser mudar
+			const paginasValidas = ["home", "eletronico", "sobre", "tecnologias-brasileiras", "terminal"];
 
 			//decide oq vai fazer agora
 			switch (cmd) {
