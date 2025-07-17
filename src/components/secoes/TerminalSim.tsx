@@ -49,30 +49,42 @@
 			//decide oq vai fazer agora
 			switch (cmdLimpo) {
 				case 'help':
+					// mostra os comandos disponiveis
 					resposta = 'Comandos: help, clear, sobre, sair, crt on/off, tema claro/escuro';
 					break;
 				case 'sobre':
+					// fala sobre o projeto
 					resposta = 'Museu digital quinquilharias.tech - preservando tecnologia brasileira.';
 					break;
 				case 'clear':
-					setHistory([]);
+					// limpa a tela
+					setHistory([
+						'Bem-vinde ao TerminalSim!',
+						'Digite "help" pra ver os comandos disponiveis.'
+					]);
 					return;
 				case 'sair':
+					// sai do terminal
+					//	ainda precisa implementar ele voltar para a pag Home
 					resposta = 'Até logo!';
 					break;
 				case 'crt on':
+					// ativa o crt
 					setCrtAtiva(true);
 					resposta = 'CRT ativado.';
 					break;
 				case 'crt off':
+					// desativa o crt
 					setCrtAtiva(false);
 					resposta = 'CRT desativado.';
 					break;
 				case 'tema claro':
+					//coloca o tema claro
 					setTemaEscuro(false);
 					resposta = 'Tema claro ativado.';
 					break;
 				case 'tema escuro':
+					//coloca o tema escuro
 					setTemaEscuro(true);
 					resposta = 'Tema escuro ativado.';
 					break;
