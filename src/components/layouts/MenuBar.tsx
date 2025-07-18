@@ -3,22 +3,15 @@ import Logo from './Logo.tsx'
 import Carrossel from "../secoes/Home.tsx";
 import TechBRs from "../secoes/TechsBRs.tsx";
 import TerminalSim from '../secoes/TerminalSim.tsx';
-import './MenuBar.css';
-import Footer from "./Footer.tsx";
-import Electronic3D from "../secoes/Electronic3D.tsx";
 
 // SPA = tipos para as seções disponíveis
-type Secao = "home" | "eletronico" | "sobre" | "tecnologias-brasileiras" | "terminal";
-
-// Tipos para tamanhos de fonte
-type TamanhoFonte = "pequena" | "padrao" | "grande";
+export type Secao = "home" | "eletronico" | "sobre" | "tecnologias-brasileiras" | "terminal";
 
 // Interface para props do NavButton
 interface NavButtonProps {
     children: React.ReactNode;
     active: boolean;
     onClick: () => void;
-    temaEscuro: boolean;
 }
 
 function MenuBar(): JSX.Element {
@@ -28,83 +21,55 @@ function MenuBar(): JSX.Element {
     const [crtAtivo, setCrtAtiva] = useState<boolean>(true); // crt comeca ligado por padrao
     // estado do tema escuro ou claro
     const [temaEscuro, setTemaEscuro] = useState<boolean>(true); // tema comeca escuro por padrao
-    //menu fixo e nao fixo, controle ao user
-    const[menuFixo, setMenuFixo] = useState<boolean>(true);
-    // controle do sidebar
-    const [sidebarAberto, setSidebarAberto] = useState<boolean>(false);
-    // controle do tamanho da fonte
-    const [tamanhoFonte, setTamanhoFonte] = useState<TamanhoFonte>("padrao");
 
-    // efeito pra adicionar ou remover o 'dark' do html
+    // efeito pra adicionar ou remover o 'dark' do html 
     useEffect(() => {
         document.documentElement.classList.toggle('dark', temaEscuro);
     }, [temaEscuro]);
-
-    // função para obter classes CSS baseadas no tamanho da fonte
-    const getClassesFonte = () => {
-        switch (tamanhoFonte) {
-            case "pequena":
-                return {
-                    base: "text-xs",
-                    titulo: "text-sm",
-                    navegacao: "text-base sm:text-lg lg:text-sm xl:text-base",
-                    conteudo: "text-xs"
-                };
-            case "grande":
-                return {
-                    base: "text-lg",
-                    titulo: "text-xl",
-                    navegacao: "text-2xl sm:text-3xl lg:text-xl xl:text-2xl",
-                    conteudo: "text-lg"
-                };
-            default: // padrao
-                return {
-                    base: "text-xl",
-                    titulo: "text-sm",
-                    navegacao: "text-xl sm:text-2xl lg:text-lg xl:text-xl",
-                    conteudo: "text-sm"
-                };
-        }
-    };
-
-    const classesFonte = getClassesFonte();
 
     /* decide qual componetne  mostrar */
     const renderSecao = (): JSX.Element => {
         switch (secaoAtual) {
             case "home":
-                return <Home temaEscuro={temaEscuro} classesFonte={classesFonte}/>;
+                return <Home/>;
             case "eletronico":
-                return <Electronic3D temaEscuro={temaEscuro} classesFonte={classesFonte}/>;
+                return <Eletronicos/>;
             case "sobre":
-                return <Sobre temaEscuro={temaEscuro} classesFonte={classesFonte}/>;
+                return <Sobre/>;
             case "tecnologias-brasileiras":
-                return <TecnologiasBrasileiras temaEscuro={temaEscuro} classesFonte={classesFonte}/>;
+                return <TecnologiasBrasileiras/>;
             case "terminal":
                 return <Terminal
-                    crtAtivo={crtAtivo}
-                    setCrtAtiva={setCrtAtiva}
-                    temaEscuro={temaEscuro}
-                    setTemaEscuro={setTemaEscuro}
-                    classesFonte={classesFonte}
-                />;
+                crtAtivo={crtAtivo}           // Para ativar CRT
+                setCrtAtiva={setCrtAtiva}     //
+                temaEscuro={temaEscuro}       // Para mudar o tema
+                setTemaEscuro={setTemaEscuro} //
+                setSecaoAtual={setSecaoAtual} // Para mudar a pagina
+                />; 
             default:
-                return <Home temaEscuro={temaEscuro} classesFonte={classesFonte}/>;
+                return <Home/>;
         }
-    };
-
-    const proximoTamanho = () => {
-        const tamanhos: TamanhoFonte[] = ["pequena", "padrao", "grande"];
-        const indiceAtual = tamanhos.indexOf(tamanhoFonte);
-        const proximoIndice = (indiceAtual + 1) % tamanhos.length;
-        setTamanhoFonte(tamanhos[proximoIndice]);
     };
 
     return (
         <>
-            <div
-                style={{backgroundColor: temaEscuro ? '#1a1a1a' : '#f8f9fa'}}
-                className={`min-h-screen ${classesFonte.base} ${temaEscuro ?' text-green-400' : 'bg-white text-black'} terminal-font ${crtAtivo ? 'crt-container' : ''}`}>
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+                    
+                    .terminal-font {
+                        font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+                        letter-spacing: 0.025em !important;
+                    }
+                    
+                    .terminal-glow {
+                    text-shadow: 0 0 2px #009900, 0 0 4px #009900;
+
+                    }
+                `
+            }} />
+
+            <div className={`min-h-screen text-sm bg-white text-black dark:bg-black dark:text-green-400 terminal-font ${crtAtivo ? 'crt-container' : ''}`}>
                 {/* Efeitos CRT */}
                 {crtAtivo && (
                     <>
@@ -114,163 +79,36 @@ function MenuBar(): JSX.Element {
                     </>
                 )}
 
-                {/* Sidebar Neon Retrátil */}
-                <div className={`fixed top-0 right-0 h-full z-40 transition-all duration-500 ease-in-out ${sidebarAberto ? 'translate-x-0' : 'translate-x-full'}`}>
-                    {/* Backdrop quando sidebar está aberto */}
-                    {sidebarAberto && (
-                        <div
-                            className="fixed inset-0 bg-gray-800 sidebar-backdrop -z-10"
-                            onClick={() => setSidebarAberto(false)}
-                        />
-                    )}
-
-                    {/* Container do Sidebar */}
-                    <div
-                        className={
-                        `h-full w-64 ${temaEscuro ? 'bg-gray-800' : 'bg-white'} border-l-2 ${temaEscuro ? 'border-green-400' : 'border-black'} shadow-2xl`}>
-                        {/* Header do Sidebar */}
-                        <div
-
-                            className={`p-4 border-b ${temaEscuro ? 'border-green-400/30' : 'bg-white-50'}`}>
-                            <h3 className={`text-lg font-bold terminal-font terminal-glow ${temaEscuro ? 'text-green-400' : 'text-gray-800'}`}>
-                                &gt; CONTROLES_
-                            </h3>
-                        </div>
-
-                        {/* Controles do Sidebar */}
-                        <div className="p-4 space-y-4">
-                            {/* Toggle CRT */}
-                            <div className="space-y-2">
-                                <label className={`text-sm font-medium ${temaEscuro ? 'text-green-300' : 'text-gray-800'}`}>
-                                    Monitor CRT
-                                </label>
-                                <button
-                                    onClick={() => setCrtAtiva(!crtAtivo)}
-                                    className={`w-full px-4 py-2 border transition-all duration-300 text-sm terminal-font neon-glow ${
-                                        temaEscuro
-                                            ? 'bg-green-400/20 border-green-400 text-green-400 hover:bg-green-400/30'
-                                            : ' border-gray-800 text-gray-800 hover:bg-gray-800/30'
-                                    }`}
-                                >
-                                    CRT: {crtAtivo ? 'ON' : 'OFF'}
-                                </button>
-                            </div>
-
-                            {/* Toggle Tema */}
-                            <div className="space-y-2">
-                                <label className={`text-sm font-medium ${temaEscuro ? 'text-green-300' : 'text-black-600'}`}>
-                                    Tema Visual
-                                </label>
-                                <button
-                                    onClick={() => setTemaEscuro(!temaEscuro)}
-                                    className={`w-full px-4 py-2 border transition-all duration-300 text-sm terminal-font neon-glow ${
-                                        temaEscuro
-                                            ? 'bg-green-400/20 border-green-400 text-green-400 hover:bg-green-400/30'
-                                            : 'bg-gray-800/20 border-black-500 text-black-500 hover:bg-gray-800/30'
-                                    }`}
-                                >
-                                    <span className={`mr-2 ${temaEscuro ? 'text-white' : 'text-gray-700'}`}>
-                                        {temaEscuro ? '◐' : '◑'}
-                                    </span>
-                                    {temaEscuro ? 'DARK' : 'LIGHT'}
-                                </button>
-                            </div>
-
-                            {/* Controle de Tamanho de Fonte */}
-                            <div className="space-y-2">
-                                <label className={`text-sm font-medium ${temaEscuro ? 'text-green-300' : 'text-black-600'}`}>
-                                    Tamanho da Fonte
-                                </label>
-                                <button
-                                    onClick={proximoTamanho}
-                                    className={`w-full px-4 py-2 border transition-all duration-300 text-sm terminal-font neon-glow ${
-                                        temaEscuro
-                                            ? 'bg-green-400/20 border-green-400 text-green-400 hover:bg-green-400/30'
-                                            : 'bg-gray-800/20 border-black-500 text-black-500 hover:bg-gray-800/30'
-                                    }`}
-                                >
-                                    <span className={`mr-2 ${temaEscuro ? 'text-white' : 'text-gray-700'}`}>
-                                        {tamanhoFonte === 'pequena' ? 'Aa' : tamanhoFonte === 'padrao' ? 'Aa' : 'Aa'}
-                                    </span>
-                                    : {tamanhoFonte.toUpperCase()}
-                                </button>
-                            </div>
-
-                            {/* Toggle Menu Fixo */}
-                            <div className="space-y-2">
-                                <label className={`text-sm font-medium ${temaEscuro ? 'text-green-300' : 'text-black-600'}`}>
-                                    Menu de Navegação
-                                </label>
-                                <button
-                                    onClick={() => setMenuFixo(!menuFixo)}
-                                    className={`w-full px-4 py-2 border transition-all duration-300 text-sm terminal-font neon-glow ${
-                                        temaEscuro
-                                            ? 'bg-green-400/20 border-green-400 text-green-400 hover:bg-green-400/30'
-                                            : 'bg-gray-800/20 border-black-500 text-black-500 hover:bg-gray-800/30'
-                                    }`}
-                                >
-                                    MENU: {menuFixo ? 'FIXO' : 'SCROLL'}
-                                </button>
-                            </div>
-
-                            {/* Separator */}
-                            <div className={`h-px ${temaEscuro ? 'bg-green-400/30' : 'bg-gray-800/30'}`}></div>
-
-                            {/* Info */}
-                            <div className="text-xs text-gray-500 terminal-font">
-                                <p>quinquilharias.tech</p>
-                                <p>Museu Digital v1.0</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Setinha Neon para abrir/fechar sidebar - Nova versão mais bonita */}
+                {/* botão toggle CRT on/off */}
                 <button
-                    onClick={() => setSidebarAberto(!sidebarAberto)}
-                    className={`sidebar-arrow fixed top-1/2 right-0 transform -translate-y-1/2 z-50 ${
-                        temaEscuro ? 'bg-green-400/10 border-green-400 text-green-400' : 'bg-gray-800/10 border-black-500 text-black-500'
-                    } border-2 rounded-l-lg shadow-lg backdrop-blur-sm`}
+                    onClick={() => setCrtAtiva(!crtAtivo)}
+                    className="fixed top-2 right-2 z-30 px-0.1 py-0.1 bg-green-400/20 border border-green-400 text-green-400 hover:bg-green-400/30 transition-all duration-300 text-sm terminal-font"
                     style={{
-                        width: '48px',
-                        height: '80px',
-                        borderRadius: '12px 0 0 12px',
-                        boxShadow: temaEscuro
-                            ? '0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 20px rgba(0, 255, 0, 0.1)'
-                            : '0 0 20px rgba(59, 130, 246, 0.3), inset 0 0 20px rgba(59, 130, 246, 0.1)',
-                        borderRight: 'none'
+                        textShadow: '0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00'
                     }}
                 >
-                    <div className="flex items-center justify-center h-full">
-                        <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className={`transition-transform duration-300 ${sidebarAberto ? 'rotate-180' : 'rotate-0'}`}
-                        >
-                            <path d="M15 18l-6-6 6-6"/>
-                        </svg>
-                    </div>
+                    CRT: {crtAtivo ? 'ON' : 'OFF'}
                 </button>
 
                 <div className={`${crtAtivo ? 'screen-curve' : ''} min-h-screen`}>
                     {/* menu de navegação entre seções */}
-                    <nav className={`${menuFixo ? 'fixed' : 'relative'} top-0 left-0 right-0 w-full z-20 p-2 sm:p-4 md:p-6 lg:p-8 border-b-2 ${temaEscuro ? 'border-green-400' : 'border-black-500'} ${temaEscuro ? 'bg-black' : 'bg-white/95'} backdrop-blur-sm`}>
-                        <div className="relative z-10 flex flex-col md:flex-row items-center md:items-end gap-4 sm:gap-8 justify-center">
+                    
+                    {/* muda o tamanho do padding dependendo do tamanho da tela:
+                        "sm:p-6" usa p6 quando tela for "small" e etc */}
+                    <nav className="relative p-2 sm:p-4 md:p-6 lg:p-8">
+                        <div className="relative z-10 flex flex-col md:flex-row items-center md:items-end gap-4 sm:gap-8 justify-center text-lg">
                             {/* chama o componente logo - quinquilharias.tech + clock*/}
                             <Logo />
-                            <div className={`flex flex-wrap justify-center gap-4 sm:gap-8 ${classesFonte.navegacao}`}>
+                                <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-xl sm:text-2xl lg:text-lg xl:text-xl">
+
+                                {/* vai mudar de cor de acordo com a seção selecionada, tendo um underline*/}
+                                
                                 {/* Home */}
                                 <NavButton
                                     active={secaoAtual === "home"}
                                     onClick={() => setSecaoAtual("home")}
-                                    temaEscuro={temaEscuro}
                                 >
+                                    {/* so mostra o nome inteiro se tiver espaço suficiente*/}
                                     <span className="inline lg:hidden">[HM]</span>
                                     <span className="hidden lg:inline">Home</span>
                                 </NavButton>
@@ -279,8 +117,8 @@ function MenuBar(): JSX.Element {
                                 <NavButton
                                     active={secaoAtual === "eletronico"}
                                     onClick={() => setSecaoAtual("eletronico")}
-                                    temaEscuro={temaEscuro}
                                 >
+                                    {/* so mostra o nome inteiro se tiver espaço suficiente*/}
                                     <span className="inline lg:hidden">[3D]</span>
                                     <span className="hidden lg:inline">Eletrônicos 3D</span>
                                 </NavButton>
@@ -289,8 +127,8 @@ function MenuBar(): JSX.Element {
                                 <NavButton
                                     active={secaoAtual === "sobre"}
                                     onClick={() => setSecaoAtual("sobre")}
-                                    temaEscuro={temaEscuro}
                                 >
+                                    {/* so mostra o nome inteiro se tiver espaço suficiente*/}
                                     <span className="inline lg:hidden">[SB]</span>
                                     <span className="hidden lg:inline">Sobre</span>
                                 </NavButton>
@@ -299,8 +137,8 @@ function MenuBar(): JSX.Element {
                                 <NavButton
                                     active={secaoAtual === "tecnologias-brasileiras"}
                                     onClick={() => setSecaoAtual("tecnologias-brasileiras")}
-                                    temaEscuro={temaEscuro}
                                 >
+                                    {/* so mostra o nome inteiro se tiver espaço suficiente*/}
                                     <span className="inline lg:hidden">[BR]</span>
                                     <span className="hidden lg:inline">Techs Brasileiras</span>
                                 </NavButton>
@@ -309,17 +147,18 @@ function MenuBar(): JSX.Element {
                                 <NavButton
                                     active={secaoAtual === "terminal"}
                                     onClick={() => setSecaoAtual("terminal")}
-                                    temaEscuro={temaEscuro}
                                 >
-                                    <span className="inline lg:hidden">[TR]</span>
-                                    <span className="hidden lg:inline">Terminal</span>
+                                    {/* so mostra o nome inteiro se tiver espaço suficiente*/}
+                                    <span className="inline lg:hidden sm:text-2xl md:text-2xl">[TR]</span>
+                                    <span className="hidden lg:inline xl:text-xl">Terminal</span>
                                 </NavButton>
+
                             </div>
                         </div>
                     </nav>
 
-                    {/* Main content - ajusta padding baseado no menu fixo */}
-                    <main className={`p-6 ${menuFixo ? 'pt-32 sm:pt-36 md:pt-40 lg:pt-44' : 'pt-6'}`}>
+                    {/* add borda dps do menu*/}
+                    <main className="p-6">
                         {renderSecao()}
                     </main>
                 </div>
@@ -329,136 +168,136 @@ function MenuBar(): JSX.Element {
 }
 
 // componente NavButton
-function NavButton({ children, active, onClick, temaEscuro }: NavButtonProps): JSX.Element {
+function NavButton({ children, active, onClick }: NavButtonProps): JSX.Element {
     return (
         <button
             onClick={onClick}
             className={`
                 relative px-0.1 py-2 terminal-font transition-all duration-300 
-                ${active
-                ? (temaEscuro ? 'text-green-400' : 'text-black-500')
-                : (temaEscuro ? 'text-white' : 'text-gray-600 hover:text-gray-800')
-            }
+                ${active ? 'text-green-400' : 'text-white text-green-400'}
             `}
             style={{
-                textShadow: active
-                    ? (temaEscuro ? '0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00' : '0 0 5px #3b82f6, 0 0 10px #3b82f6')
-                    : 'none'
+                textShadow: active ? '0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00' : 'none'
             }}
         >
+            {/*barrinha/underline do menu sções*/}
             {children}
             <div className={`
-                absolute bottom-0 left-0 right-0 h-0.5 transition-all duration-300
-                ${active
-                ? (temaEscuro ? 'bg-green-400 opacity-100 scale-x-100' : 'bg-gray-800 opacity-100 scale-x-100')
-                : 'opacity-0 scale-x-0'
-            }
+                absolute bottom-0 left-0 right-0 h-0.5 bg-green-400 transition-all duration-300
+                ${active ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}
             `}></div>
         </button>
     );
 }
 
-// Componentes das seções - adicionando prop classesFonte
-interface SecaoProps {
-    temaEscuro: boolean;
-    classesFonte: {
-        base: string;
-        titulo: string;
-        navegacao: string;
-        conteudo: string;
-    };
-}
-
-function Home({ temaEscuro, classesFonte }: SecaoProps): JSX.Element {
+// Componentes das seções
+function Home(): JSX.Element {
     return (
         <div className="text-center">
-            <h1 className={`${classesFonte.titulo} font-bold mb-4 terminal-font terminal-glow ${temaEscuro ? 'text-green-400' : 'text-black-500'}`}>
+            {/* Titulo */}
+            <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
                 &gt; BEM-VINDE AO MUSEU DIGITAL_
-                <span className={`terminal-cursor ml-1 ${temaEscuro ? 'text-green-400' : 'text-black-500'}`}>█</span>
+                <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
+
+            {/* carrossel de destaques */}
             <Carrossel/>
-            <p className={`${classesFonte.conteudo} terminal-font max-w-2xl mx-auto ${temaEscuro ? 'text-gray-300' : 'text-gray-600'}`}>
+
+            {/* corpo em si */}
+            <p className="text-sm text-gray-300 terminal-font max-w-2xl mx-auto">
                 Explore a evolução da tecnologia através do tempo
             </p>
         </div>
     );
 }
 
-function Electronics3DViewer({ temaEscuro, classesFonte }: SecaoProps): JSX.Element {
+function Eletronicos(): JSX.Element {
     return (
         <div className="text-center">
-            <h1 className={`${classesFonte.titulo} font-bold mb-4 terminal-font terminal-glow ${temaEscuro ? 'text-green-400' : 'text-black-500'}`}>
+            {/* Titulo */}
+            <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
                 &gt; ELETRÔNICOS 3D
-                <span className={`terminal-cursor ml-1 ${temaEscuro ? 'text-green-400' : 'text-black-500'}`}>█</span>
+                <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
-            <p className={`${classesFonte.conteudo} terminal-font max-w-2xl mx-auto ${temaEscuro ? 'text-gray-300' : 'text-gray-600'}`}>
+            
+            {/* Subtitulo */}
+            <p className="text-sm text-gray-300 terminal-font max-w-2xl mx-auto">
                 Visualizações interativas dos aparelhos eletrônicos
             </p>
+            
+            {/* corpo em si */}
+
         </div>
     );
 }
 
-function Sobre({ temaEscuro, classesFonte }: SecaoProps): JSX.Element {
+function Sobre(): JSX.Element {
     return (
         <div className="text-center">
-            <h1 className={`${classesFonte.titulo} font-bold mb-4 terminal-font terminal-glow ${temaEscuro ? 'text-green-400' : 'text-black-500'}`}>
+            {/* Titulo */}
+            <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
                 &gt; SOBRE O MUSEU QUINQUILHARIAS.TECH
-                <span className={`terminal-cursor ml-1 ${temaEscuro ? 'text-green-400' : 'text-black-500'}`}>█</span>
+                <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
-            <p className={`${classesFonte.conteudo} terminal-font max-w-2xl mx-auto ${temaEscuro ? 'text-gray-300' : 'text-gray-600'}`}>
+
+            {/* Subtitulo */}
+            <p className="text-sm text-gray-300 terminal-font max-w-2xl mx-auto">
                 Um espaço digital dedicado à preservação da história tecnológica
             </p>
+            
+            {/* corpo em si */}
+
         </div>
     );
 }
 
-function TecnologiasBrasileiras({ temaEscuro, classesFonte }: SecaoProps): JSX.Element {
+function TecnologiasBrasileiras(): JSX.Element {
     return (
         <div className="text-center">
-            <h1 className={`${classesFonte.titulo} font-bold mb-4 terminal-font terminal-glow ${temaEscuro ? 'text-green-400' : 'text-black-500'}`}>
+            {/* Titulo */}
+            <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
                 &gt; TECNOLOGIAS BRASILEIRAS_
-                <span className={`terminal-cursor ml-1 ${temaEscuro ? 'text-green-400' : 'text-black-500'}`}>█</span>
+                <span className="terminal-cursor text-green-400 ml-1">█</span>
             </h1>
-            <p className={`${classesFonte.conteudo} terminal-font max-w-2xl mx-auto ${temaEscuro ? 'text-gray-300' : 'text-gray-600'}`}>
-                CTRL-Z em inovações digitais 100% nacionais
+            
+            {/* Subtitulo */}
+            <p className="text-sm text-gray-300 terminal-font max-w-2xl mx-auto">
+                CRTL-Z em inovações digitais 100% nacionais
             </p>
+            
+            {/* corpo em si */}
             <TechBRs/>
         </div>
     );
 }
 
 interface TerminalProps {
-    crtAtivo: boolean;
-    setCrtAtiva: React.Dispatch<React.SetStateAction<boolean>>;
-    temaEscuro: boolean;
-    setTemaEscuro: React.Dispatch<React.SetStateAction<boolean>>;
-    classesFonte: {
-        base: string;
-        titulo: string;
-        navegacao: string;
-        conteudo: string;
-    };
+  crtAtivo: boolean;
+  setCrtAtiva: React.Dispatch<React.SetStateAction<boolean>>;
+  temaEscuro: boolean;
+  setTemaEscuro: React.Dispatch<React.SetStateAction<boolean>>;
+  setSecaoAtual: React.Dispatch<React.SetStateAction<Secao>>;
 }
 
-function Terminal({ crtAtivo, setCrtAtiva, temaEscuro, setTemaEscuro, classesFonte }: TerminalProps): JSX.Element {
-    return (
-        <div className="text-center">
-            <h1 className={`${classesFonte.titulo} font-bold mb-4 terminal-font terminal-glow ${temaEscuro ? 'text-green-400' : 'text-black-500'}`}>
-                &gt; TERMINAL_
-                <span className={`terminal-cursor ml-1 ${temaEscuro ? 'text-green-400' : 'text-black-500'}`}>█</span>
-            </h1>
-            <p className={`${classesFonte.conteudo} terminal-font max-w-2xl mx-auto ${temaEscuro ? 'text-gray-300' : 'text-gray-600'}`}>
-                Simulador de um Terminal
-            </p>
-            <TerminalSim
-                crtAtivo={crtAtivo}
-                setCrtAtiva={setCrtAtiva}
-                temaEscuro={temaEscuro}
-                setTemaEscuro={setTemaEscuro}
-            />
-            <Footer temaEscuro={temaEscuro} />
-        </div>
-    );
+function Terminal({ crtAtivo, setCrtAtiva, temaEscuro, setTemaEscuro, setSecaoAtual  }: TerminalProps): JSX.Element {
+  return (
+    <div className="text-center">
+      <h1 className="text-sm font-bold text-green-400 mb-4 terminal-font terminal-glow">
+        &gt; TERMINAL_
+        <span className="terminal-cursor text-green-400 ml-1">█</span>
+      </h1>
+      <p className="text-sm text-gray-300 terminal-font max-w-2xl mx-auto">
+        Simulador de um Terminal
+      </p>
+      <TerminalSim
+        crtAtivo={crtAtivo}
+        setCrtAtiva={setCrtAtiva}
+        temaEscuro={temaEscuro}
+        setTemaEscuro={setTemaEscuro}
+        setSecaoAtual={setSecaoAtual}  // passa para TerminalSim
+      />
+    </div>
+  );
 }
 
 export default MenuBar;
